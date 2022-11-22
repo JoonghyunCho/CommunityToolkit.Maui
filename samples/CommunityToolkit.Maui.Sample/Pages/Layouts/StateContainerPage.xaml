@@ -90,7 +90,7 @@
 
             <Grid
                 mct:StateContainer.CurrentState="{Binding GridState}"
-                mct:StateContainer.ShouldAnimateOnStateChange="True"
+                mct:StateContainer.ShouldAnimateOnStateChange="False"
                 ColumnDefinitions="1*, 1*, 1*"
                 RowDefinitions="1*, 1*">
 

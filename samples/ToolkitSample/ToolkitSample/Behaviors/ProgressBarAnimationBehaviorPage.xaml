@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:Class="ToolkitSample.ProgressBarAnimationBehaviorPage">
+
+    <VerticalStackLayout>
+        <Label Text="The ProgressBarAnimationBehavior is a behavior that animates a ProgressBar" />
+
+        <ProgressBar Margin="10">
+            <ProgressBar.Behaviors>
+                <toolkit:ProgressBarAnimationBehavior
+                        x:Name="ProgressBarAnimationBehavior"
+                        Progress="0.75"
+                        Length="250"/>
+            </ProgressBar.Behaviors>
+        </ProgressBar>
+    </VerticalStackLayout>
+</ContentPage>

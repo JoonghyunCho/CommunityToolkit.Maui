@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:Class="ToolkitSample.UserStoppedTypingBehaviorPage">
+
+
+    <Entry Margin="10" Placeholder="Start typing when you stop the behavior will trigger...">
+        <Entry.Behaviors>
+            <toolkit:UserStoppedTypingBehavior 
+                        Command="{Binding SearchCommand}"
+                        StoppedTypingTimeThreshold="1000"
+                        MinimumLengthThreshold="3"
+                        ShouldDismissKeyboardAutomatically="True" />
+        </Entry.Behaviors>
+    </Entry>
+
+</ContentPage>

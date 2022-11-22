@@ -35,7 +35,9 @@ sealed class StateContainerController : IDisposable
 	/// <param name="cancellationToken"></param>
 	public async Task SwitchToContent(bool shouldAnimate, CancellationToken? cancellationToken = null)
 	{
+		Console.WriteLine($"############### SwitchToContent");
 		var layout = GetLayout();
+		Console.WriteLine($"############### SwitchToContent. layout: {layout.GetType()}");
 		var token = cancellationToken ?? RebuildAnimationTokenSource(layout);
 
 		await FadeLayoutChildren(layout, shouldAnimate, true, token);
@@ -44,15 +46,19 @@ sealed class StateContainerController : IDisposable
 		previousState = null;
 		layout.Children.Clear();
 
+		Console.WriteLine($"###############  Put the original content back in.");
 		// Put the original content back in.
 		foreach (var item in originalContent)
 		{
+			Console.WriteLine($"###############  layout.Children.Add({item.GetType()})");
 			item.Opacity = shouldAnimate ? 0 : 1;
 			layout.Children.Add(item);
 		}
 
 		token.ThrowIfCancellationRequested();
 		await FadeLayoutChildren(layout, shouldAnimate, false, token);
+
+		Console.WriteLine($"############### SwitchToContent - done");
 	}
 
 	/// <summary>
@@ -64,8 +70,10 @@ sealed class StateContainerController : IDisposable
 	public async Task SwitchToState(string state, bool shouldAnimate, CancellationToken? cancellationToken = null)
 	{
 		var layout = GetLayout();
+		Console.WriteLine($"############### SwitchToState layout:{layout.GetType()}");
 		var token = cancellationToken ?? RebuildAnimationTokenSource(layout);
 		var view = GetViewForState(state);
+		Console.WriteLine($"############### GetViewForState view:{view.GetType()}");
 
 		await FadeLayoutChildren(layout, shouldAnimate, true, token);
 		token.ThrowIfCancellationRequested();
@@ -77,18 +85,21 @@ sealed class StateContainerController : IDisposable
 
 			foreach (var item in layout.Children)
 			{
+				Console.WriteLine($"############### ADD ITEM TO ORIGINALCONTENT:{item.GetType()}");
 				originalContent.Add((View)item);
 			}
 		}
 
 		previousState = state;
 		layout.Children.Clear();
+		Console.WriteLine($"############### SwitchToState - Clear()");
 
 		// If the layout we're applying StateContainer to is a Grid,
 		// we want to have the StateContainer span the entire Grid surface.
 		// Otherwise it would just end up in row 0 : column 0.
 		if (layout is Grid grid)
 		{
+			Console.WriteLine($"############### layout is Grid grid");
 			// We create a VerticalStackLayout spanning the Grid.
 			// It takes VerticalOptions and HorizontalOptions from the
 			// view to allow for more control over how it layouts.
@@ -109,19 +120,24 @@ sealed class StateContainerController : IDisposable
 				Grid.SetColumnSpan(innerLayout, grid.ColumnDefinitions.Count);
 			}
 
+			var temp = ((Layout)view.Parent);
+			Console.WriteLine($"############### SwitchToState 11 Remove! : {temp?.GetType()}");
 			// We need to delete the view reference from its parent if it was previously added.
-			((Layout)view.Parent)?.Remove(view);
+			temp?.Remove(view);
 
+			Console.WriteLine($"############### SwitchToState 22 ADD To innerLayout: {view.GetType()}");
 			innerLayout.Children.Add(view);
 			layout.Children.Add(innerLayout);
 		}
 		else
 		{
+			Console.WriteLine($"############### layout is NOT!! Grid grid!!  layout.Children.Add({view.GetType()});");
 			layout.Children.Add(view);
 		}
 
 		token.ThrowIfCancellationRequested();
 		await FadeLayoutChildren(layout, shouldAnimate, false, token);
+		Console.WriteLine($"############### SwitchToState - done");
 	}
 
 	internal Layout GetLayout()

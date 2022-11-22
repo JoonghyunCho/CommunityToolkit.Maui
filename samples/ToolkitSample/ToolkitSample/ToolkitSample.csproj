@@ -1,0 +1,174 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+    <TargetFrameworks>net6.0-ios;net6.0-android;net6.0-maccatalyst</TargetFrameworks>
+    <TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net6.0-windows10.0.19041.0</TargetFrameworks>
+    <TargetFrameworks Condition="'$(IncludeTizenTargetFrameworks)' == 'true'">$(TargetFrameworks);net6.0-tizen</TargetFrameworks>
+		<OutputType>Exe</OutputType>
+		<RootNamespace>ToolkitSample</RootNamespace>
+		<UseMaui>true</UseMaui>
+		<SingleProject>true</SingleProject>
+		<ImplicitUsings>enable</ImplicitUsings>
+
+		<!-- Display name -->
+		<ApplicationTitle>ToolkitSample</ApplicationTitle>
+
+		<!-- App Identifier -->
+		<ApplicationId>com.companyname.toolkitsample</ApplicationId>
+		<ApplicationIdGuid>0c818ca7-f956-4133-8904-7bf33995ad0c</ApplicationIdGuid>
+
+		<!-- Versions -->
+		<ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
+		<ApplicationVersion>1</ApplicationVersion>
+
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">14.2</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst'">14.0</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">21.0</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
+		<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<!-- App Icon -->
+		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />
+
+		<!-- Splash Screen -->
+		<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#512BD4" BaseSize="128,128" />
+
+		<!-- Images -->
+		<MauiImage Include="Resources\Images\*" />
+		<MauiImage Update="Resources\Images\dotnet_bot.svg" BaseSize="168,208" />
+
+		<!-- Custom Fonts -->
+		<MauiFont Include="Resources\Fonts\*" />
+
+		<!-- Raw Assets (also remove the "Resources\Raw" prefix) -->
+		<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="CommunityToolkit.Maui" Version="2.0.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Update="Behaviors\EmailValidationBehaviorPage.xaml.cs">
+	    <DependentUpon>EmailValidationBehaviorPage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Behaviors\UserStoppedTypingBehaviorPage.xaml.cs">
+	    <DependentUpon>UserStoppedTypingBehaviorPage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Behaviors\UriValidationBehaviorPage.xaml.cs">
+	    <DependentUpon>UriValidationBehaviorPage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Behaviors\TextValidationBehaviorPage.xaml.cs">
+	    <DependentUpon>TextValidationBehaviorPage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Behaviors\StatusBarBehaviorPage.xaml.cs">
+	    <DependentUpon>StatusBarBehaviorPage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Behaviors\RequiredStringValidationBehaviorPage.xaml.cs">
+	    <DependentUpon>RequiredStringValidationBehaviorPage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Behaviors\ProgressBarAnimationBehaviorPage.xaml.cs">
+	    <DependentUpon>ProgressBarAnimationBehaviorPage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Behaviors\NumericValidationBehaviorPage.xaml.cs">
+	    <DependentUpon>NumericValidationBehaviorPage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Behaviors\MultiValidationBehaviorPage.xaml.cs">
+	    <DependentUpon>MultiValidationBehaviorPage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Behaviors\MaskedBehaviorPage.xaml.cs">
+	    <DependentUpon>MaskedBehaviorPage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Behaviors\CharactersValidationBehaviorPage.xaml.cs">
+	    <DependentUpon>CharactersValidationBehaviorPage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Behaviors\AnimationBehaviorPage.xaml.cs">
+	    <DependentUpon>AnimationBehaviorPage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="FadeAnimationPage.xaml.cs">
+	    <DependentUpon>FadeAnimationPage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Layouts\CustomUniformItemsLayoutPage.xaml.cs">
+	    <DependentUpon>CustomUniformItemsLayoutPage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Layouts\UniformItemsLayoutPage.xaml.cs">
+	    <DependentUpon>UniformItemsLayoutPage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Layouts\StateContainerPage.xaml.cs">
+	    <DependentUpon>StateContainerPage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="ToastPage.xaml.cs">
+	    <DependentUpon>ToastPage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="SnackbarPage.xaml.cs">
+	    <DependentUpon>SnackbarPage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\DrawingViewPage.xaml.cs">
+	    <DependentUpon>DrawingViewPage.xaml</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Update="Behaviors\EmailValidationBehaviorPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Behaviors\UserStoppedTypingBehaviorPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Behaviors\UriValidationBehaviorPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Behaviors\TextValidationBehaviorPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Behaviors\StatusBarBehaviorPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Behaviors\RequiredStringValidationBehaviorPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Behaviors\ProgressBarAnimationBehaviorPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Behaviors\NumericValidationBehaviorPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Behaviors\MultiValidationBehaviorPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Behaviors\MaskedBehaviorPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Behaviors\CharactersValidationBehaviorPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Behaviors\AnimationBehaviorPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="FadeAnimationPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Layouts\CustomUniformItemsLayoutPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Layouts\UniformItemsLayoutPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Layouts\StateContainerPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="ToastPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="SnackbarPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\DrawingViewPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	</ItemGroup>
+
+</Project>
